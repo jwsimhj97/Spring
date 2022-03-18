@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+<bean id="tv" class="polymorphism.SamsungTV">
+	<constructor-arg index="0" ref="apple"></constructor-arg>
+	<constructor-arg index="1" value="2700000"></constructor-arg>
+</bean>
+<bean id="sony" class="polymorphism.SonySpeaker"></bean>
+<bean id="apple" class="polymorphism.SonySpeaker"></bean>
+
+<!-- <bean id="tv" class="polymorphism.SamsungTV" lazy-init="true" scope="prototype"> </bean> -->
+<!-- <bean id="tv" class="polymorphism.SamsungTV" p:speaker-ref="sony" p:price="2700000"/> -->
+<!-- <bean id="sony"></bean> -->
+
+
+<!-- <bean id="tv" class="polymorphism.SamsungTV" scope="prototype"/> -->
+<!-- singleton, prototype -->
+
+
+<!-- <bean id="tv" class="polymorphism.SamsungTV" init-method="initMethod"/> -->
+<!-- <bean id="tv" class="polymorphism.SamsungTV" destroy-method="destroyMethod"/> -->
+<!-- <bean id="tv" class="polymorphism.SamsungTV" lazy-init="true"/> -->
+
+</beans>

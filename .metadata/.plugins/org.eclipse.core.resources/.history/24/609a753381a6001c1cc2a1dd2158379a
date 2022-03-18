@@ -1,0 +1,7 @@
+package com.springbook.biz.user.impl;
+
+
+DAO(Data Access Object)
+public class UserDAO {
+
+}

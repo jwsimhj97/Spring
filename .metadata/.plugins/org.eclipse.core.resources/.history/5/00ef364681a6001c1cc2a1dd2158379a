@@ -1,0 +1,9 @@
+package com.springbook.biz.user.impl;
+
+
+//DAO(Data Access Object)
+public class UserDAO {
+	//JDBC 관련 변수
+	private Connection conn = null;
+
+}

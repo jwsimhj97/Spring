@@ -1,0 +1,3 @@
+amsungTV() {
+		System.out.println("===> SamsungTV(1) °´Ã¼ »ý¼º");
+	}
