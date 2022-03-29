@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+
+<!-- 	base-package 소스에 들어있는 값을 읽어서 -->
+	<context:component-scan base-package="com.springbook.biz"></context:component-scan>
+<!-- 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
+	
+<!-- 	p.220~221 -->
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!-- 		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property> -->
+<!-- 		<property name="url" value="jdbc:mariadb://localhost:3306/springWork"></property> -->
+<!-- 		<property name="username" value="root"></property> -->
+<!-- 		<property name="password" value="1111"></property> -->
+<!-- 	</bean> -->
+	
+	
+<!-- 	p.220~221 -->
+	<context:property-placeholder location="classpath:database.properties"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+
+
+<!-- 	p.230 아무리 봐도 여기 파일 어디 에런데...-->
+<!-- 	Spring JDBC설정 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+<!-- 	Transaction 설정 -->
+<!-- 	p.236~240 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+<!-- 	Transaction Adivce 설정 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/> <!-- name이랑 read-only 같이사용 => select -->
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="txPointcut" expression="execution(* com.springbook.biz..*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+	
+
+</beans>

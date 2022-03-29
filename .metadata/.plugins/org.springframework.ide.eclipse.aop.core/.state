@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
+<aop-project name="MVCProject01"/>
+<aop-project name="MVCProject02"/>
 <aop-project name="BoardWeb"/>
+<aop-project name="SpringFileupload"/>
+<aop-project name="JDBCProject"/>
+<aop-project name="SpringMVC"/>
+<aop-project name="AOPProject"/>
 </aop-reference-model>
