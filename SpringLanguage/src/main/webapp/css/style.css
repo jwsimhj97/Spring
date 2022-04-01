@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+/* common */
+.container {width:100%; max-width:1200px; margin:0 auto;}
+h1{font-size:30px; text-align:center; font-weight:700;}
+p{margin:0; padding:0;}
+strong {font-weight:700;}
+a:hover, a:focus, a:active {opacity:0.8;}
+button:hover, button:focus, button:active {opacity:0.8;}
+.ta_L {text-align:left;}
+.pc {display:block;}
+.hidden {display:none; opacity:0; z-index:-9999; visibility: hidden;}
+
+.btnBox {margin-top: 50px;  text-align:center;}
+.btnBox2 {margin-top: 50px;  text-align:right;}
+.btnBox2 > a {text-align:center;}
+.blackBtn {display:inline-block; font-size:16px; padding:0 15px; min-width: 100px; height: 40px; line-height:40px; background: #000; color: #fff; border: 0; border-radius: 6px;}
+.purBtn{display:inline-block; font-size:16px; padding:0 15px; min-width: 100px; height: 40px; line-height:40px; background:#a87df5; color: #fff; border: 0; border-radius: 6px; }
+.grayBtn{display:inline-block; font-size:16px; padding:0 15px; min-width: 100px; height: 40px; line-height:40px; background:#666; color: #fff; border: 0; border-radius: 6px; }
+.dPurBtn{display:inline-block; font-size:16px; padding:0 15px; min-width: 100px; height: 40px; line-height:40px; background:#673ab7; color: #fff; border: 0; border-radius: 6px; }
+
+
+
+/* login page */
+.logBox {position: fixed; left: 50%; top: 50%; transform: translate(-50%,-50%); margin-top:-40px; padding: 70px 40px; border:1px solid #ccc; border-radius:16px;}
+.logBox > h1 {margin-bottom: 30px; color: #3d00aa;}
+.loginForm {border-top: 3px solid #000;padding-top: 20px;}
+.loginForm form{width:300px; margin:0 auto;}
+fieldset{padding: 0; margin: 0; border: 0;}
+fieldset>div{display: flex; margin-bottom: 10px;}
+fieldset>div:last-child{margin-bottom:0;}
+fieldset>div>label{font-size:14px; width: 30%; height: 30px; line-height: 30px; display: inline-block; color:#000;}
+fieldset>div>input{font-size:14px; width: 70%; height: 30px; display: inline-block; color: #444; border: 1px solid #999; border-radius: 4px; text-indent: 10px;}
+fieldset>div>button{font-size:16px; margin: 0 auto; width: 100px; height: 30px; background: #673ab7; color: #fff; border: 0; border-radius: 6px; margin-top:30px; cursor:pointer;}
+
+/* language select box */
+.langBox {text-align: center; margin-bottom: 30px;}
+.langPurBtn {font-size: 15px; margin: 0 auto; min-width: 80px; padding: 0 15px; height: 25px; line-height: 25px; background: #a87df5; color: #fff; border: 0; border-radius: 6px; cursor: pointer; display: inline-block;}
+
+
+
+/* getBoardList page */
+.boardListBox h1{padding-top:50px;}
+.loginState {display: flex; justify-content: end; margin-bottom: 30px;}
+.loginState>p{display:inline-block; font-size:16px; line-height:25px; text-align:center; font-weight:400;}
+.sPurBtn {font-size: 14px; text-align: center; margin-left: 10px; color: #fff; padding: 0 15px; line-height: 25px; min-width: 65px; height: 25px; background: #4e2bf4; display: inline-block; border-radius: 6px; text-decoration: none;}
+
+.searchForm{text-align: right;}
+.searchForm form fieldset {}    
+.searchForm form fieldset select {color: #444; border: 1px solid #ccc; width: 80px; height: 30px; border-radius: 4px;}    
+.searchForm form fieldset input {color: #444; border: 1px solid #ccc; width: 180px; height: 30px; border-radius: 4px; padding: 0; text-indent: 10px;}    
+.searchForm form fieldset button {color: #fff; border: 0; background: #666; width: 50px; height: 30px; border-radius: 4px;}
+    
+.boardListTable {width:100%; margin-top: 20px;}
+.boardListTable ul>li{text-align:center;}
+.boardListTable .thead li {border-top:3px solid #000; border-bottom:1px solid #000; font-size:16px; font-weight:500; height:35px; line-height:30px; color:#000;}
+.boardListTable .tbody li {border-top:1px solid #aaa; font-size:16px; font-weight:300; height:45px; line-height:45px; color:#333;}
+.boardListTable .tbody li>a{color:#000;}
+.boardListTable .tbody li>a:hover{text-decoration:underline;}
+.boardListTable .tbody:first-child li {border-top:0;}
+.boardListTable .tbody:last-child li {border-bottom:1px solid #000;}
+.boardListTable .ta_L {text-align:left; padding-left:20px;}
+
+.boardListTable ul {overflow:hidden;}
+.boardListTable ul li {float:left;}
+.boardListTable ul li:nth-child(1){width:8%;}
+.boardListTable ul li:nth-child(2){width:57%;}
+.boardListTable ul li:nth-child(3){width:8%;}
+.boardListTable ul li:nth-child(4){width:20%;}
+.boardListTable ul li:nth-child(5){width:7%;}
+
+
+/* getBoard page */
+.writeBox {width: 700px; margin: 0 auto; padding-top:50px;}
+.writeBox tr th, td{font-size:16px;}
+.writeBox tr th {background: #a87df5; border-bottom: 1px solid #fff; height: 40px;}
+.writeBox tr th label {text-align:center; color:#fff;}
+.writeBox tr td {border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; padding: 5px 10px;}
+.writeBox tr td p {margin-bottom:10px;}
+.writeBox tr td input {width:100%; border: 0;}
+.writeBox tr td input:focus {outline:none;}
+.writeBox tr td textarea{border:0; resize: none;}
+.writeBox tr td textarea:focus {outline:none;}
+.writeBox tr:first-child td {border-top:1px solid #ccc;}
+.writeBox tr:last-child td {border-bottom:0; border-right:0; padding: 0;}
+.writeBox .btnBox { margin-top: 30px;}
+
+
+/* error 창 */
+.errorBox {width: 100%; margin-top: 50px;}
+.errorBox thead th {text-align:center; background:orange; border:1px solid #000; border-bottom:0; padding: 10px 0;}
+.errorBox thead th p {font-size:16px; font-weight: 700;}
+.errorBox tbody td {text-align: center; border: 1px solid #000; padding: 20px 0; min-height: 100px; line-height: 100px; display: block;}
+.errorBox tbody td p {font-size:14px; }
+
+
+
+
+
+
+
+/* 모바일 */
+@media screen and (max-width: 1200px) {
+	/* common */
+	.container {width:calc(100% - 100px); margin:0 50px;}
+	.pc {display:none;}
+	
+	/* getBoardList page */
+	.boardListTable ul li:nth-child(1){width:15%;}
+	.boardListTable ul li:nth-child(2){width:70%;}
+	.boardListTable ul li:nth-child(3){width:15%;}
+}
