@@ -14,14 +14,14 @@
 
 <!-- 댓글 조회 -->
 	<select id="getInqReplyList" resultMap="inqReplyResult">
-		SELECT * FROM inq_reply WHERE inqRe_bno=7
+		SELECT * FROM inq_reply WHERE inqRe_bno=#{inqRe_bno}
 	</select>
+<!-- 	(inqRe_bno=inq_table.inq_num) -->
 
 
 <!-- 댓글 작성 -->
 	<insert id="insertInqReply">
- 	INSERT INTO inq_reply(INQRE_BNO, INQRE_RNO, INQRE_CONTENT, INQRE_NICKNAME)VALUES(#{inqRe_bno}, (SELECT MAX(inqRe_rno) FROM inq_reply WHERE inqRe_bno=7)+1, #{inqRe_content}, #{inqRe_nickname})
-	</insert>
+ 	INSERT INTO inq_reply(INQRE_BNO, INQRE_RNO, INQRE_CONTENT, INQRE_NICKNAME)VALUES(7, 11, #{inqRe_content}, #{inqRe_nickname})	</insert>
 <!-- 	insert into inq_reply(inqRe_bno,inqRe_rno, inqRe_content, inqRe_nickname) values(7,1,'안녕하세요. 답변드립니다.', '관리자'); -->
 <!-- 	INSERT INTO INQ_REPLY(INQRE_BNO,INQRE_RNO, INQRE_CONTENT, INQRE_NICKNAME) VALUES(7,2,'네 감사합니다.', 'hong-gil-dong'); -->
 <!-- INSERT INTO inq_reply(INQRE_BNO, INQRE_RNO, INQRE_CONTENT, INQRE_NICKNAME)VALUES(?, ?, ?, ? ) -->

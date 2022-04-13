@@ -70,6 +70,20 @@
   	<div class="inqReplyBox">
   		<h4>댓글</h4>
   		<form action="insertInqReply.do" method="post" enctype="multipart/form-data">
+			<div class="input-group mb-3 hidden">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text">작성글번호</span>
+			  </div>
+			  <input type="text" class="form-control innm" name="inqRe_bno" value="${inq.inq_num}" >      
+			</div>
+			
+			<div class="input-group mb-3 hidden">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text">댓글번호</span>
+			  </div>
+			  <input type="text" class="form-control innm" name="inqRe_rno" >      
+			</div>
+			
 			<div class="input-group mb-3">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text">작성자</span>
