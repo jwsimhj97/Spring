@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="InqDAO">
+	<resultMap type="inqBoard" id="inqBoardResult">
+		<id property="inq_num" column="INQSEQ"/>
+		<result property="inq_title" column="INQTITLE"/>
+		<result property="inq_nickname" column="INQNICKNAME"/>
+		<result property="inq_content" column="INQCONTENT"/>
+		<result property="inq_date" column="INQDATE"/>
+		<result property="inq_cnt" column="INQCNT"/>
+	</resultMap>
+	
+	<insert id="inqInsertBoard" parameterType="inqBoard">
+		<![CDATA[
+			INSERT INTO inq_table(INQTITLE, INQNICKNAME, INQCONTENT, INQFILENAME) VALUES(#{inq_title},#{inq_nickname},#{inq_content},#{inq_fileName})
+		]]>
+	</insert>
+	
+	<update id="inqUpdateBoard">
+		<![CDATA[
+			UPDATE inq_table SET INQTITLE = #{inq_title}, INQNICKNAME= #{inq_nickname}, INQCONTENT= #{inq_content} WHERE INQNUM= #{inq_num}
+		]]>
+	</update>
+	
+	<delete id="inqDeleteBoard">
+		<![CDATA[
+			DELETE FROM inq_table WHERE INQNUM= #{inq_num}
+		]]>
+	</delete>
+	
+	<select id="inqGetBoard" resultType="inqBoard">
+		<![CDATA[
+			SELECT * FROM inq_table WHERE INQNUM= #{inq_num}
+		]]>
+	</select>
+	
+	<update id="inqUpdateViewCnt">
+	        UPDATE inq_table SET INQCNT = INQCNT+1 WHERE INQNUM= #{inq_num}
+	 </update>
+	
+	<select id="inqGetBoardList" resultMap="inqBoardResult">
+			SELECT * FROM inq_table WHERE 1 = 1
+			<if test="inq_searchCondition == 'INQTITLE'">
+				AND INQTITLE LIKE CONCAT('%',#{inq_searchKeyword},'%')
+			</if>
+			<if test="inq_searchCondition == 'INQCONTENT'">
+				AND INQCONTENT LIKE CONCAT('%',#{inq_searchKeyword},'%')
+			</if>
+			ORDER BY INQNUM DESC
+	</select>
+	
+	<select id="inqGetBoardList_T" resultMap="inqBoardResult">
+		<![CDATA[
+			SELECT * FROM inq_table WHERE INQTITLE LIKE CONCAT('%',#{inq_searchKeyword},'%') ORDER BY INQNUM DESC
+		]]>
+	</select>
+	
+	<select id="inqGetBoardList_C" resultMap="inqBoardResult">
+		<![CDATA[
+			SELECT * FROM inq_table WHERE INQCONTENT LIKE CONCAT('%',#{inq_searchKeyword},'%') ORDER BY INQNUM DESC
+		]]>
+	</select>
+
+
+</mapper>

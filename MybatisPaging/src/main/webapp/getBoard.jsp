@@ -71,10 +71,7 @@
 					</tr>
 					<tr>
 						<th><label>업로드</label></th>
-						<td>
-							<p id="fileVal">${board.fileName}</p>
-							<input type="file" name="uploadFile">
-						</td>
+						<td>첨부파일 ${board.fileName }</td>
 					</tr>
 					<tr>
 						<th><label>등록일</label></th>
@@ -100,7 +97,6 @@
 			<a class="grayBtn" href="insertBoard.jsp">글등록</a>
 			<a class="dPurBtn" href="deleteBoard.do?seq=${board.seq}">글삭제</a>
 			<a class="blackBtn" href="getBoardList.do">글목록</a>
-			
 		</div>
 	</div>
 </body>

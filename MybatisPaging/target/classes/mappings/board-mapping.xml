@@ -22,14 +22,14 @@
 	
 	<update id="updateBoard">
 		<![CDATA[
-			UPDATE BOARD SET TITLE=#{title}, CONTENT=#{content} WHERE SEQ=#{seq}
+			UPDATE BOARD SET TITLE = #{title}, WRITER= #{writer}, CONTENT= #{content} WHERE SEQ= #{seq}
 		]]>
 <!-- 		UPDATE BOARD SET TITLE=#{title}, CONTENT=#{content} WHERE SEQ=#{seq} -->
 	</update>
 	
 	<delete id="deleteBoard">
 		<![CDATA[
-			DELETE BOARD WHERE SEQ=#{seq}
+			DELETE FROM BOARD WHERE SEQ=#{seq}
 		]]>
 <!-- 		DELETE FROM BOARD WHERE SEQ=#{seq} -->
 	</delete>

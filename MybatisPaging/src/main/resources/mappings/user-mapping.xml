@@ -3,47 +3,36 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="userDAO">
-	<resultMap type="user" id="userResult">
-		<id property="id" column="ID"/>
-		<result property="password" column="PASSWORD"/>
-		<result property="name" column="NAME"/>
-		<result property="role" column="ROLE"/>
-	</resultMap>
 	
 	<insert id="insertUser" parameterType="user">
 		<![CDATA[
 			INSERT INTO USERS(ID, PASSWORD,NAME,ROLE) VALUES(#{id}, #{password},#{name},#{role})
 		]]>
-<!-- 		insert into users(id, password,name,role) values(?,?,?,?) -->
 	</insert>
 	
 	<update id="updateUser">
 		<![CDATA[
 			UPDATE USERS SET PASSWORD=#{password}, NAME=#{name}, ROLE=#{role} WHERE ID=#{id}
 		]]>
-<!-- 		update users set password=?, name=?, role=? where id=? -->
 	</update>
 	
 	<delete id="deleteUser">
 		<![CDATA[
 			DELETE USERS WHERE ID=#{id}
 		]]>
-<!-- 		delete from users where id=? -->
 	</delete>
 	
 	<select id="getUser" resultType="user">
 		<![CDATA[
-			SELECT * FROM USERS WHERE ID=#{id} AND PASSWORD=#{password}
+  			SELECT * FROM USERS WHERE ID=#{id} AND PASSWORD=#{password}
 		]]>
-<!-- 		select * from users where id=? and password=? -->
 	</select>
 	
 	
-	<select id="getUserList" resultMap="userResult">
+	<select id="getUserList">
 		<![CDATA[
 			SELECT * FROM USERS ORDER BY ID DESC
  		]]>
-<!-- 		select * from users order by id desc -->
 	</select>
 
 

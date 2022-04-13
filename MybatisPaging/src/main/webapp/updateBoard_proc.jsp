@@ -16,7 +16,7 @@
 	vo.setTitle(title);
 	vo.setContent(content);
 	vo.setSeq(Integer.parseInt(seq));
-	
+
 	BoardDAO boardDAO=new BoardDAO();
 	boardDAO.updateBoard(vo);
 	

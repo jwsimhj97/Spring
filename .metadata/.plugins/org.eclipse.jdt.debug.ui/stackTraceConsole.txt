@@ -1,3 +1,14 @@
-amsungTV() {
-		System.out.println("===> SamsungTV(1) °´Ã¼ »ý¼º");
-	}
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.ArithmeticException">
+					common/arithmeticError.jsp
+				</prop>
+				
+				<prop key="java.lang.NullPointerException">
+					common/nullPointerError.jsp
+				</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="common/error.jsp"/>
+	</bean>

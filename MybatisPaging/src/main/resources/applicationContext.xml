@@ -15,13 +15,13 @@
 <!-- 	<context:component-scan base-package="com.springbook.biz"></context:component-scan> -->
 	
 <!-- 	p.220~221 -->
-<!-- 	<context:property-placeholder location="classpath:db.properties"/> -->
-<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
-<!-- 		<property name="driverClassName" value="${jdbc.driverClassName}"/> -->
-<!-- 		<property name="url" value="${jdbc.url}"></property> -->
-<!-- 		<property name="username" value="${jdbc.username}"></property> -->
-<!-- 		<property name="password" value="${jdbc.password}"></property> -->
-<!-- 	</bean> -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
 	
 <!-- 	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
 <!-- 		<property name="configLocation" value="classpath:sql-map-config.xml"/> -->

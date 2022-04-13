@@ -38,7 +38,7 @@
 		
 		<!-- 검색 시작 -->
 		<div class="searchForm">
-		<form action="getBoardList.do" method="post">
+			<form action="getBoardList.do" method="post">
 <!-- 		<form action=getBoardList.jsp method="post"> -->
 				<fieldset>
 					<select name="searchCondition">

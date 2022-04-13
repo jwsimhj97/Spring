@@ -14,22 +14,11 @@
 			<h1>로그인</h1>
 			<div class="loginForm">
 				<form action="login.do" method="post">
-<!-- 			<form action=login_proc.jsp method="post"> -->
-
-					<!-- p.381 -->
 					<fieldset>
 						<div><label>아이디</label><input type="text" name="id" value="${userVO.id}"></div>
 						<div><label>비밀번호</label><input type="password" name="password" value="${userVO.password}"></div>
 						<div><button type="submit">로그인</button></div>
 					</fieldset>
-					
-					
-				
-<!-- 					<fieldset> -->
-<!-- 						<div><label>아이디</label><input type="text" name="id"></div> -->
-<!-- 						<div><label>비밀번호</label><input type="password" name="password"></div> -->
-<!-- 						<div><button type="submit">로그인</button></div> -->
-<!-- 					</fieldset> -->
 				</form>
 			</div>
 		</div>

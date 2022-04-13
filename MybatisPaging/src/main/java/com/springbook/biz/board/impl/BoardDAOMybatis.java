@@ -2,16 +2,11 @@ package com.springbook.biz.board.impl;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.springbook.biz.board.BoardVO;
-import com.springbook.biz.user.UserVO;
-import com.springbook.biz.util.SqlSessionFactoryBean;
 
 @Repository
 public class BoardDAOMybatis {
@@ -41,7 +36,7 @@ public class BoardDAOMybatis {
 		System.out.println("===> Mybatis 로 getBoard() 기능 처리");
 		mybatis.update("BoardDAO.getBoard", vo);
 //		mybatis.selectOne("UserDAO.getBoard", vo);
-		return (BoardVO) mybatis.selectOne("BoardDAO.getBoard", vo);
+		return mybatis.selectOne("BoardDAO.getBoard", vo);
 	}
 	
 	public void updateViewCnt(BoardVO vo) {

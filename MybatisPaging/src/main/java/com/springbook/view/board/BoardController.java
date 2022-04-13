@@ -48,7 +48,9 @@ public class BoardController {
 //	p.404
 	@RequestMapping("/updateBoard.do")
 	public String updateBoard(@ModelAttribute("board") BoardVO vo) {
+		System.out.println("오류1");
 		boardService.updateBoard(vo);
+		System.out.println("오류2");
 		return "getBoardList.do";
 	}
 	
