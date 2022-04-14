@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -99,40 +100,50 @@ public class InqController {
 
 	// 글 상세 조회
 	@RequestMapping("/Inquiry/getInq.do")
-	public String getInq(InqVO inqVo, InqReplyVO inqReplyVo, Model model) {
+	public String getInq(InqVO inqVo, InqReplyVO inqReplyVo, Model model, HttpServletRequest request) {
 		System.out.println(inqVo.getInq_num());
+		inqReplyVo.setInqRe_bno(inqVo.getInq_num());
 		model.addAttribute("inq", inqService.getInq(inqVo));
-		System.out.println("77:"+inqService.getInq(inqVo).getInq_filename());
+		
 
 //		댓글기능 목록
 		model.addAttribute("inqReplyList", inqReplyService.getInqReplyList(inqReplyVo));
-		System.out.println(inqReplyService.getInqReplyList(inqReplyVo).get(0));
+		
 		
 		return "getInq.jsp";
 	}
 	// 댓글 작성
 	@RequestMapping(value = "/Inquiry/insertInqReply.do")
-	public String insertInqReply(InqReplyVO inqReplyVo, MultipartHttpServletRequest request) throws IOException{
+	public String insertInqReply(InqReplyVO inqReplyVo, MultipartHttpServletRequest request, Model model) throws IOException{
+		System.out.println(inqReplyVo.getInqRe_bno()+" zz");
 		inqReplyService.insertInqReply(inqReplyVo);
-		return "getInq.do?inqRe_bno=${inq_table.inq_num}";
+		
+		InqVO inqVo = new InqVO();
+		inqVo.setInq_num(inqReplyVo.getInqRe_bno());
+		model.addAttribute("inq", inqService.getInq(inqVo));
+		model.addAttribute("inqReplyList", inqReplyService.getInqReplyList(inqReplyVo));
+		
+		return "getInq.jsp";
+	}
+	// 댓글 수정
+	@RequestMapping("/Inquiry/updateInqReply.do*")
+	public String updateInqReply(InqReplyVO inqReplyVo, HttpServletRequest request, Model model, HttpSession session) throws IOException{
+		System.out.println(inqReplyVo.getInqRe_rno());
+		System.out.println(inqReplyVo.getInqRe_content());
+		inqReplyService.updateInqReply(inqReplyVo);
+		System.out.println(request.getParameter("bno"));
+		System.out.println(inqReplyVo);
+		System.out.println(inqReplyVo.getInqRe_nickname());
+		
+		if( inqReplyVo.getInqRe_nickname().equals(session.getAttribute("userName").toString()) ){
+			inqReplyService.updateInqReply(inqReplyVo);
+			return "getInq.do";
+		}else {
+			return "getInq.do?error=1";
+		}
+		
 	}
 	
-	//댓글 작성
-//	@RequestMapping(value="/Inquiry/insertInqReply.do", method = RequestMethod.POST)
-//	public String replyWrite(InqReplyVO inqReplyVo) throws Exception {
-//		logger.info("reply Write");
-//		
-//		replyService.writeReply(vo);
-//		
-//		rttr.addAttribute("bno", vo.getBno());
-//		rttr.addAttribute("page", scri.getPage());
-//		rttr.addAttribute("perPageNum", scri.getPerPageNum());
-//		rttr.addAttribute("searchType", scri.getSearchType());
-//		rttr.addAttribute("keyword", scri.getKeyword());
-//		
-//		return "redirect:/board/readView";
-//	}
-		
 		
 
 	// 글 목록

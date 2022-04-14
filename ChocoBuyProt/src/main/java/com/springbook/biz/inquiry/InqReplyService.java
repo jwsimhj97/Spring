@@ -9,5 +9,8 @@ public interface InqReplyService {
 	
 	//댓글작성
 	void insertInqReply(InqReplyVO inqReplyVo);
+	
+	//댓글수정
+	void updateInqReply(InqReplyVO inqReplyVo);
 
 }

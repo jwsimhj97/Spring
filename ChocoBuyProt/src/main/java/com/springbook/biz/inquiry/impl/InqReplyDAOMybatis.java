@@ -17,7 +17,6 @@ public class InqReplyDAOMybatis{
 	//댓글 조회
 	public List<InqReplyVO> getInqReplyList(InqReplyVO inqReplyVo) {
 		System.out.println("===>JDBC로 getInqReplyList() ");
-		System.out.println("zz "+mybatis.selectList("InqReplyDAO.getInqReplyList", inqReplyVo).get(0));
 		return mybatis.selectList("InqReplyDAO.getInqReplyList", inqReplyVo);
 	}
 	
@@ -25,5 +24,12 @@ public class InqReplyDAOMybatis{
 	public void insertInqReply(InqReplyVO inqReplyVo) {
 		System.out.println("===>JDBC로 insertInqReply() 기능처리");
 		mybatis.insert("InqReplyDAO.insertInqReply", inqReplyVo);
+	}
+	
+
+	//댓글 수정
+	public void updateInqReply(InqReplyVO inqReplyVo) {
+		System.out.println("===>JDBC로 updateInqReply() 기능처리");
+		mybatis.update("InqReplyDAO.updateInqReply", inqReplyVo);
 	}
 }

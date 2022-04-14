@@ -25,4 +25,9 @@ public class InqReplyServiceImpl implements InqReplyService {
 	public void insertInqReply(InqReplyVO inqReplyVo) {
 		inqReplyDAO.insertInqReply(inqReplyVo);
 	}
+	
+	@Override
+	public void updateInqReply(InqReplyVO inqReplyVo) {
+		inqReplyDAO.updateInqReply(inqReplyVo);
+	}
 }

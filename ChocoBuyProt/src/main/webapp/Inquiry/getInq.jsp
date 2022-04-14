@@ -69,7 +69,7 @@
   	<!-- 댓글 -->
   	<div class="inqReplyBox">
   		<h4>댓글</h4>
-  		<form action="insertInqReply.do" method="post" enctype="multipart/form-data">
+  		<form action="/Inquiry/insertInqReply.do" method="post" enctype="multipart/form-data">
 			<div class="input-group mb-3 hidden">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text">작성글번호</span>
@@ -80,8 +80,7 @@
 			<div class="input-group mb-3 hidden">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text">댓글번호</span>
-			  </div>
-			  <input type="text" class="form-control innm" name="inqRe_rno" >      
+			  </div>  
 			</div>
 			
 			<div class="input-group mb-3">
@@ -111,13 +110,18 @@
 							작성 날짜 :  <fmt:formatDate value="${getInqReply.inqRe_date}" pattern="yyyy-MM-dd" />
 						</p>
 						
-						<p>${getInqReply.inqRe_content}</p>
+						
+						<p><textarea name="content" cols="40" rows="10">${getInqReply.inqRe_content}</textarea></p>
+						
+						<div class="btnBox">
+							<a class="dPurBtn" href="/Inquiry/updateInqReply.do?bno=${inqReply.inqRe_bno} ">답변수정</a>
+							<a class="dPurBtn" href="/Inquiry/deleteInqReply.do?inqRe_bno=${inqReply.inqRe_bno}">답변삭제</a>
+						</div>
 					</li>
 				</c:forEach>   
 			</ol>
 		</div>
 		<div class="btnBox">
-			<a class="dPurBtn" href="deleteInqReply.do?inqRe_bno=${inqReply.inqRe_bno}">답변삭제</a>
 			<a class="blackBtn" href="getInqReplyList.do">글목록</a>
 		</div>
 	</div>
@@ -127,6 +131,13 @@
 function downloadFile(inq_filename){
     window.location ='inqDownload.do?inq_filename='+inq_filename;
 }
+// $(functION(){
+    
+//     $("#TXT").ATTR("READONLY",TRUE);        // READONLY 처리
+    
+//     $("#TXT").REMOVEATTR("READONLY");       // READONLY 삭제
+// }
+
 </script>
 
 </body>
