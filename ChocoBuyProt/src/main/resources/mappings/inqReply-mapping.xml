@@ -33,7 +33,7 @@
 <!-- 댓글 삭제 -->
 	<delete id="deleteInqReply">
 		<![CDATA[
-		DELETE FROM inq_reply WHERE INQRE_RNO = #{SELECT * FROM inq_reply alias_for_subquery} 
+		DELETE FROM inq_reply WHERE INQRE_RNO=#{inqRe_rno} AND INQRE_BNO=#{inqRe_bno}
 		]]>
 	</delete>
 

@@ -28,8 +28,14 @@ public class InqReplyDAOMybatis{
 	
 
 	//댓글 수정
-	public void updateInqReply(InqReplyVO inqReplyVo) {
-		System.out.println("===>JDBC로 updateInqReply() 기능처리");
-		mybatis.update("InqReplyDAO.updateInqReply", inqReplyVo);
+//	public void updateInqReply(InqReplyVO inqReplyVo) {
+//		System.out.println("===>JDBC로 updateInqReply() 기능처리");
+//		mybatis.update("InqReplyDAO.updateInqReply", inqReplyVo);
+//	}
+	
+	//댓글 삭제
+	public void deleteInqReply(InqReplyVO inqReplyVo) {
+		System.out.println("===>JDBC로 deleteInqReply() 기능처리");
+		mybatis.delete("InqReplyDAO.deleteInqReply", inqReplyVo);
 	}
 }

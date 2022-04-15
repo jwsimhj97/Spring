@@ -4,20 +4,22 @@
 <%@ include file="../template/header.jsp" %>
 <%@ include file="../template/menu.jsp" %>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 	<div class="container" align="center">
 		<div class="warp">
-			<div class="jumbotron inq_tit">
+			<div class="inq_tit">
 			   <h1>1:1 문의사항</h1>      
 			</div>
-			<nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-			  <form class="form-inline" name="fm" action="getInqList.do" method="post">
-			  	<select class="form-control" id="sel1" name="inq_searchCondition" style="display:inline-block!important;margin-right:10px;">
+			<nav class="inquiry_searchBox">
+			  <form class="" name="fm" action="getInqList.do" method="post">
+			  	<select class="" id="sel1" name="inq_searchCondition" style="display:inline-block!important;margin-right:10px;">
 					<c:forEach items="${inqConditionMap}" var="option">
 						<option value="${option.value}" <c:if test="${inqVo.inq_searchCondition eq option.value}">selected</c:if>>${option.key}</option>
 					</c:forEach>
 			    </select>
-			    <input class="form-control mr-sm-2" type="text" name="inq_searchKeyword" value="${inqVo.inq_searchKeyword}" placeholder="검색어를 입력하세요.">
+			    <input class="" type="text" name="inq_searchKeyword" value="${inqVo.inq_searchKeyword}" placeholder="검색어를 입력하세요.">
 			<!--     <button class="btn btn-success" type="submit">검색</button> -->
 				<input type="hidden" name="nowPage">
 			    <button class="btn btn-success" type="button" onclick="pageFnc('0')">검색</button>
@@ -25,9 +27,15 @@
 			  </form>
 			</nav>
 			
-			<div class="container-fluid">
-			  <table class="table table-hover">
-			    <thead class="btn-primary">
+			<div class="">
+			  <table class='table table-bordered'>
+			  	<colgroup>
+			  		<col width="10%">
+			  		<col width="50%">
+			  		<col width="15%">
+			  		<col width="">
+			  	</colgroup>
+			    <thead class="">
 			      <tr>
 			        <th>번호</th>
 			        <th>제목</th>
@@ -39,10 +47,10 @@
 			    <tbody>
 			<c:forEach items="${inqList}" var="inq">
 				<tr>
-				  <td class="tdCenter">${inq.inq_num}</td>
+				  <td>${inq.inq_num}</td>
 				  <td><a href="getInq.do?inq_num=${inq.inq_num}">${inq.inq_title}</a></td>
-				  <td class="tdCenter">${inq.inq_nickname}</td>
-				  <td class="tdCenter">${inq.inq_date}</td>
+				  <td>${inq.inq_nickname}</td>
+				  <td>${inq.inq_date}</td>
 <%-- 				  <td class="tdCenter">${inq.inq_cnt}</td> --%>
 				</tr>
 			</c:forEach>

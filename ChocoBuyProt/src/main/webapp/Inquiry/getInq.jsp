@@ -114,15 +114,12 @@
 						<p><textarea name="content" cols="40" rows="10">${getInqReply.inqRe_content}</textarea></p>
 						
 						<div class="btnBox">
-							<a class="dPurBtn" href="/Inquiry/updateInqReply.do?bno=${inqReply.inqRe_bno} ">답변수정</a>
-							<a class="dPurBtn" href="/Inquiry/deleteInqReply.do?inqRe_bno=${inqReply.inqRe_bno}">답변삭제</a>
+<%-- 							<a class="dPurBtn" href="/Inquiry/updateInqReply.do?bno=${getInqReply.inqRe_bno}&rno=${getInqReply.inqRe_rno}">답변수정</a> --%>
+							<a class="dPurBtn" href="/Inquiry/deleteInqReply.do?bno=${getInqReply.inqRe_bno}&rno=${getInqReply.inqRe_rno}">답변삭제</a>
 						</div>
 					</li>
 				</c:forEach>   
 			</ol>
-		</div>
-		<div class="btnBox">
-			<a class="blackBtn" href="getInqReplyList.do">글목록</a>
 		</div>
 	</div>
   

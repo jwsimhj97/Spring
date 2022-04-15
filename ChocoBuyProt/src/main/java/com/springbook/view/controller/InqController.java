@@ -101,14 +101,21 @@ public class InqController {
 	// 글 상세 조회
 	@RequestMapping("/Inquiry/getInq.do")
 	public String getInq(InqVO inqVo, InqReplyVO inqReplyVo, Model model, HttpServletRequest request) {
-		System.out.println(inqVo.getInq_num());
+		System.out.println(inqVo);
+		System.out.println("에러?1");
 		inqReplyVo.setInqRe_bno(inqVo.getInq_num());
+		System.out.println("에러?2");
 		model.addAttribute("inq", inqService.getInq(inqVo));
+		System.out.println("에러?3");
 		
-
 //		댓글기능 목록
+		if (inqReplyVo==null) {
+			inqReplyVo = new InqReplyVO();
+		}
 		model.addAttribute("inqReplyList", inqReplyService.getInqReplyList(inqReplyVo));
 		
+		System.out.println(inqReplyVo);
+		System.out.println("에러?4");
 		
 		return "getInq.jsp";
 	}
@@ -126,25 +133,32 @@ public class InqController {
 		return "getInq.jsp";
 	}
 	// 댓글 수정
-	@RequestMapping("/Inquiry/updateInqReply.do*")
-	public String updateInqReply(InqReplyVO inqReplyVo, HttpServletRequest request, Model model, HttpSession session) throws IOException{
-		System.out.println(inqReplyVo.getInqRe_rno());
-		System.out.println(inqReplyVo.getInqRe_content());
-		inqReplyService.updateInqReply(inqReplyVo);
-		System.out.println(request.getParameter("bno"));
-		System.out.println(inqReplyVo);
-		System.out.println(inqReplyVo.getInqRe_nickname());
+//	@RequestMapping("/Inquiry/updateInqReply.do*")
+//	public String updateInqReply(InqVO inqVo, InqReplyVO inqReplyVo, HttpServletRequest request, Model model, HttpSession session) throws IOException{
+//		inqReplyService.updateInqReply(inqReplyVo);
+//		
+//		if( inqReplyVo.getInqRe_nickname().equals(session.getAttribute("userName").toString()) ){
+//			inqReplyService.updateInqReply(inqReplyVo);
+//			return "getInq.do";
+//		}else {
+//			return "getInq.do?error=1";
+//		}
+//	}
+	// 댓글 삭제
+	@RequestMapping("/Inquiry/deleteInqReply.do")
+	public String deleteInqReply(InqVO inqVo, InqReplyVO inqReplyVo, HttpServletRequest request, Model model, HttpSession session) throws IOException{
 		
-		if( inqReplyVo.getInqRe_nickname().equals(session.getAttribute("userName").toString()) ){
-			inqReplyService.updateInqReply(inqReplyVo);
-			return "getInq.do";
-		}else {
-			return "getInq.do?error=1";
-		}
+		inqReplyVo.setInqRe_bno(Integer.parseInt(request.getParameter("bno")));
+		inqReplyVo.setInqRe_rno(Integer.parseInt(request.getParameter("rno")));
 		
-	}
-	
+		inqVo.setInq_num(Integer.parseInt(request.getParameter("bno")));
+		inqVo = inqService.getInq(inqVo);
+		inqReplyService.deleteInqReply(inqReplyVo);
 		
+		model.addAttribute("inqReplyList", inqReplyService.getInqReplyList(inqReplyVo));
+
+		return "getInq.jsp";
+	}	
 
 	// 글 목록
 	@RequestMapping("/Inquiry/getInqList.do")

@@ -35,7 +35,7 @@
 
 /* container */
 .container {width: 1000px; margin: 0 auto;}
-.warp {min-height: 450px;}
+.warp {min-height: 450px; padding-top:60px;}
 
 
 /* footer */

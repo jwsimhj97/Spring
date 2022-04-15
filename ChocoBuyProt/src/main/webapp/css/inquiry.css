@@ -10,4 +10,12 @@
 
 /* 컨텐츠 부분 */
 .inq_tit {}
-.inq_tit > h1{font-size:16px;}
+.inq_tit > h1{font-size: 24px; text-align: left;}
+
+
+.inquiry_searchBox {text-align:right;}
+
+
+.table-bordered {width: 100%;}
+.table-bordered th, td {text-align:center;}
+.table-bordered .title {text-align:left;}
