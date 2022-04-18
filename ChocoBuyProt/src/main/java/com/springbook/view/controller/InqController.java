@@ -51,7 +51,7 @@ public class InqController {
 
 
 	// 글 등록
-	@RequestMapping(value = "/Inquiry/insertInq.do")
+	@RequestMapping(value = "/Inquiry/InsertInq")
 	public String insertInq(InqVO inqVo, MultipartHttpServletRequest request) throws IOException{
 		//파일 업로드 처리 
 		//board테이블에 컬럼추가하기 ALTER TABLE board ADD COLUMN filename varchar(200);
@@ -69,23 +69,23 @@ public class InqController {
 		}
 		
 		inqService.insertInq(inqVo);
-		return "getInqList.do";
+		return "/Inquiry/GetInqList";
 	}
 
 	// 글 수정
-	@RequestMapping("/Inquiry/updateInq.do")
+	@RequestMapping("/Inquiry/UpdateInq")
 	public String updateInq(@ModelAttribute("inq") InqVO inqVo, HttpSession session) {
 		if( inqVo.getInq_nickname().equals(session.getAttribute("userName").toString()) ){
 			inqService.updateInq(inqVo);
-			return "getInqList.do";
+			return "/Inquiry/GetInqList";
 		}else {
-			return "getInq.do?error=1";
+			return "/Inquiry/GetInq?error=1";
 		}
 		
 	}
 
 	// 글 삭제
-	@RequestMapping("/Inquiry/deleteInq.do")
+	@RequestMapping("/Inquiry/DeleteInq")
 	public String deleteInq(@ModelAttribute("inq") InqVO inqVo, HttpSession session) {
 		if( inqVo.getInq_nickname().equals(session.getAttribute("userName").toString()) ) {
 			if(inqVo.getInq_filename()!=null) {
@@ -95,11 +95,11 @@ public class InqController {
 			}
 		}
 		inqService.deleteInq(inqVo);
-		return "getInqList.do";
+		return "redirect:/Inquiry/GetInqList";
 	}
 
 	// 글 상세 조회
-	@RequestMapping("/Inquiry/getInq.do")
+	@RequestMapping("/Inquiry/GetInq")
 	public String getInq(InqVO inqVo, InqReplyVO inqReplyVo, Model model, HttpServletRequest request) {
 		System.out.println(inqVo);
 		System.out.println("에러?1");
@@ -117,10 +117,10 @@ public class InqController {
 		System.out.println(inqReplyVo);
 		System.out.println("에러?4");
 		
-		return "getInq.jsp";
+		return "/Inquiry/GetInq";
 	}
 	// 댓글 작성
-	@RequestMapping(value = "/Inquiry/insertInqReply.do")
+	@RequestMapping(value = "/Inquiry/InsertInqReply")
 	public String insertInqReply(InqReplyVO inqReplyVo, MultipartHttpServletRequest request, Model model) throws IOException{
 		System.out.println(inqReplyVo.getInqRe_bno()+" zz");
 		inqReplyService.insertInqReply(inqReplyVo);
@@ -130,22 +130,22 @@ public class InqController {
 		model.addAttribute("inq", inqService.getInq(inqVo));
 		model.addAttribute("inqReplyList", inqReplyService.getInqReplyList(inqReplyVo));
 		
-		return "getInq.jsp";
+		return "/Inquiry/GetInq";
 	}
 	// 댓글 수정
-//	@RequestMapping("/Inquiry/updateInqReply.do*")
+//	@RequestMapping("/Inquiry/updateInqReply*")
 //	public String updateInqReply(InqVO inqVo, InqReplyVO inqReplyVo, HttpServletRequest request, Model model, HttpSession session) throws IOException{
 //		inqReplyService.updateInqReply(inqReplyVo);
 //		
 //		if( inqReplyVo.getInqRe_nickname().equals(session.getAttribute("userName").toString()) ){
 //			inqReplyService.updateInqReply(inqReplyVo);
-//			return "getInq.do";
+//			return "getInq";
 //		}else {
-//			return "getInq.do?error=1";
+//			return "getInq?error=1";
 //		}
 //	}
 	// 댓글 삭제
-	@RequestMapping("/Inquiry/deleteInqReply.do")
+	@RequestMapping("/Inquiry/DeleteInqReply")
 	public String deleteInqReply(InqVO inqVo, InqReplyVO inqReplyVo, HttpServletRequest request, Model model, HttpSession session) throws IOException{
 		
 		inqReplyVo.setInqRe_bno(Integer.parseInt(request.getParameter("bno")));
@@ -157,14 +157,14 @@ public class InqController {
 		
 		model.addAttribute("inqReplyList", inqReplyService.getInqReplyList(inqReplyVo));
 
-		return "getInq.jsp";
+		return "/Inquiry/GetInq";
 	}	
 
 	// 글 목록
-	@RequestMapping("/Inquiry/getInqList.do")
+	@RequestMapping("/Inquiry/GetInqList")
 	public String getInqListPost(PagingVO pv, InqVO inqVo, Model model,@RequestParam(value = "nowPage", required = false) String nowPage) {
 		System.out.println("글 목록 검색 처리");
-		String cntPerPage = "5";
+		String cntPerPage = "10";
 		if (inqVo.getInq_searchCondition() != null) inqVo.setInq_searchCondition(inqVo.getInq_searchCondition());
 		else inqVo.setInq_searchCondition("INQ_TITLE");
 		
@@ -174,6 +174,7 @@ public class InqController {
 		System.out.println("111: "+inqVo.getInq_searchKeyword());
 
 		int total = inqService.countInq(inqVo);
+		System.out.println(total+"king");
 		if (nowPage == null)  nowPage = "1";
 
 		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
@@ -184,10 +185,10 @@ public class InqController {
 		model.addAttribute("inqList", inqService.getInqList(inqVo));
 		model.addAttribute("inq_searchKeyword", inqVo.getInq_searchKeyword());
 		model.addAttribute("inq_searchCondition", inqVo.getInq_searchCondition());
-		return "getInqList.jsp";
+		return "/Inquiry/GetInqList";
 	}
 	
-	@RequestMapping(value="/inqDownload.do", method=RequestMethod.GET)
+	@RequestMapping(value="inqDownload", method=RequestMethod.GET)
     public void fileDownLoad(@RequestParam(value="inq_filename",defaultValue = "", required=false) String inq_filename, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("INQUIRY 파일 다운로드");
 		if (!inq_filename.equals("")) {

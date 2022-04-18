@@ -45,7 +45,7 @@ public class BoardController {
 
 
 	// 글 등록
-	@RequestMapping(value = "/Board/insertBoard.do")
+	@RequestMapping(value = "/Board/insertBoard")
 	public String insertBoard(BoardVO vo, MultipartHttpServletRequest request) throws IOException{
 		//파일 업로드 처리 
 		//board테이블에 컬럼추가하기 ALTER TABLE board ADD COLUMN filename varchar(200);
@@ -63,23 +63,23 @@ public class BoardController {
 		}
 		
 		boardService.insertBoard(vo);
-		return "getBoardList.do";
+		return "getBoardList";
 	}
 
 	// 글 수정
-	@RequestMapping("/Board/updateBoard.do")
+	@RequestMapping("/Board/updateBoard")
 	public String updateBoard(@ModelAttribute("board") BoardVO vo, HttpSession session) {
 		if( vo.getWriter().equals(session.getAttribute("userName").toString()) ){
 			boardService.updateBoard(vo);
-			return "getBoardList.do";
+			return "getBoardList";
 		}else {
-			return "getBoard.do?error=1";
+			return "getBoard?error=1";
 		}
 		
 	}
 
 	// 글 삭제
-	@RequestMapping("/Board/deleteBoard.do")
+	@RequestMapping("/Board/deleteBoard")
 	public String deleteBoard(@ModelAttribute("board") BoardVO vo, HttpSession session) {
 		if( vo.getWriter().equals(session.getAttribute("userName").toString()) ) {
 			if(vo.getFilename()!=null) {
@@ -89,11 +89,11 @@ public class BoardController {
 			}
 		}
 		boardService.deleteBoard(vo);
-		return "getBoardList.do";
+		return "getBoardList";
 	}
 
 	// 글 상세 조회
-	@RequestMapping("/getBoard.do")
+	@RequestMapping("/getBoard")
 	public String getBoard(BoardVO vo, Model model) {
 		model.addAttribute("board", boardService.getBoard(vo));
 		System.out.println("77:"+boardService.getBoard(vo).getFilename());
@@ -101,7 +101,7 @@ public class BoardController {
 	}
 
 	// 글 목록
-	@RequestMapping("/Board/getBoardList.do")
+	@RequestMapping("/Board/getBoardList")
 	public String getBoardListPost(PagingVO pv, BoardVO vo, Model model,@RequestParam(value = "nowPage", required = false) String nowPage) {
 		System.out.println("글 목록 검색 처리");
 		String cntPerPage = "5";
@@ -127,7 +127,7 @@ public class BoardController {
 		return "/Board/getBoardList.jsp";
 	}
 	
-	@RequestMapping(value="/download.do", method=RequestMethod.GET)
+	@RequestMapping(value="/download", method=RequestMethod.GET)
     public void fileDownLoad(@RequestParam(value="filename",defaultValue = "", required=false) String filename, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("파일 다운로드");
 		if (!filename.equals("")) {
