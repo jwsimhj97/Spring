@@ -50,8 +50,8 @@ public class InqController {
 	}
 
 
-	// 글 등록
-	@RequestMapping(value = "/Inquiry/InsertInq")
+	// 글 등록완료
+	@RequestMapping(value = "/Inquiry/InsertInq", method=RequestMethod.POST)
 	public String insertInq(InqVO inqVo, MultipartHttpServletRequest request) throws IOException{
 		//파일 업로드 처리 
 		//board테이블에 컬럼추가하기 ALTER TABLE board ADD COLUMN filename varchar(200);
@@ -69,15 +69,22 @@ public class InqController {
 		}
 		
 		inqService.insertInq(inqVo);
-		return "/Inquiry/GetInqList";
+		return "redirect:/Inquiry/GetInqList";
 	}
+	
+	// 글 등록페이지 이동하기
+		@RequestMapping(value = "/Inquiry/InsertInq")
+		public String insertInq(InqVO inqVo) throws Exception{
+			return "/Inquiry/InsertInq";
+		}
+	
 
 	// 글 수정
 	@RequestMapping("/Inquiry/UpdateInq")
 	public String updateInq(@ModelAttribute("inq") InqVO inqVo, HttpSession session) {
 		if( inqVo.getInq_nickname().equals(session.getAttribute("userName").toString()) ){
 			inqService.updateInq(inqVo);
-			return "/Inquiry/GetInqList";
+			return "redirect:/Inquiry/GetInqList";
 		}else {
 			return "/Inquiry/GetInq?error=1";
 		}
@@ -188,7 +195,7 @@ public class InqController {
 		return "/Inquiry/GetInqList";
 	}
 	
-	@RequestMapping(value="inqDownload", method=RequestMethod.GET)
+	@RequestMapping(value="/Inquiry/inqDownload", method=RequestMethod.GET)
     public void fileDownLoad(@RequestParam(value="inq_filename",defaultValue = "", required=false) String inq_filename, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("INQUIRY 파일 다운로드");
 		if (!inq_filename.equals("")) {
@@ -202,7 +209,7 @@ public class InqController {
 			
 			//(3) ContentType설정
 			byte[] bytes = org.springframework.util.FileCopyUtils.copyToByteArray(file);
-			response.setHeader("Content-Disposition", "attachment; inq_filename=\""+ fn + "\"");
+			response.setHeader("Content-Disposition", "attachment; filename=\""+ fn + "\"");
 			response.setContentLength(bytes.length);
 	//			response.setContentType("image/jpeg");
 	        
@@ -211,8 +218,6 @@ public class InqController {
 	        response.getOutputStream().close();
         }
     }
-	
-	
 	
 	
 	

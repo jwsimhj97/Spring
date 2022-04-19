@@ -8,6 +8,5 @@
 </head>
 <body>
 	<a href="/Login/login">1:1 페이지 이동</a>
-<!-- 	<a href="/Inquiry/GetInqList">1:1 페이지 이동</a> -->
 </body>
 </html>

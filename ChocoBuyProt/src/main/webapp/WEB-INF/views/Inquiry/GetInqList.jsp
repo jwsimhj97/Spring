@@ -22,8 +22,7 @@
 			<!--     <button class="btn btn-success" type="submit">검색</button> -->
 				<input type="hidden" name="nowPage">
 			    <button class="btn btn-success" type="button" onclick="pageFnc('0')">검색</button>
-<!-- 			    <button class="inquiry_gblueBtn" onclick="location.href='/Inquiry/InsertInq'">새글 등록</button> -->
-				 	<a class="inquiry_gblueBtn" href="InsertInq">새글 작성하기</a>
+			    <button class="btn btn-inqWrite" type="button" onclick="location.href='/Inquiry/InsertInq'">새 문의글 작성</button>
 			  </form>
 			</nav>
 			
@@ -57,7 +56,7 @@
 			    </tbody>
 			  </table><br><br>
 			  
-			  <div id="btnBox" class="pgBtnBox">
+			  <div id="btnBox" class="inq_pgBtnBox">
 				<div id="pgCnt" class="btn-group">
 				<c:if test="${paging.startPage != 1 }">
 					<button type="button" class="btn btn-primary" onClick="pageFnc(${paging.startPage - 1 })">&lt;</button>

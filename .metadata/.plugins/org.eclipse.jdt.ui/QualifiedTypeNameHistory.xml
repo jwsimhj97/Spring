@@ -55,9 +55,9 @@
 <fullyQualifiedTypeName name="org.mybatis.spring.SqlSessionTemplate"/>
 <fullyQualifiedTypeName name="com.springbook.biz.inquiry.InqReplyService"/>
 <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
-<fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartHttpServletRequest"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="com.springbook.biz.inquiry.impl.InqReplyServiceImpl"/>
 <fullyQualifiedTypeName name="com.springbook.biz.inquiry.InqVO"/>
 <fullyQualifiedTypeName name="com.springbook.biz.inquiry.InqReplyVO"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartHttpServletRequest"/>
 </qualifiedTypeNameHistroy>
