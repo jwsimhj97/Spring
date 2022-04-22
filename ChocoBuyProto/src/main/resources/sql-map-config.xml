@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="com.chocobuy.biz.trade.TradeVO" alias="trade" />
+		<typeAlias type="com.chocobuy.biz.user.UserVO" alias="user" />
+		<typeAlias type="com.chocobuy.biz.inquiry.InqVO" alias="inq" />
+		<typeAlias type="com.chocobuy.biz.inquiry.InqReplyVO" alias="inqReply" />
+		<typeAlias type="com.chocobuy.biz.service.ServiceVO" alias="service"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mappings/trade-mapping.xml" />
+		<mapper resource="mappings/user-mapping.xml" />
+		<mapper resource="mappings/inquiry-mapping.xml" />
+		<mapper resource="mappings/inqReply-mapping.xml" />
+		<mapper resource="mappings/service-mapping.xml" />
+	</mappers>
+</configuration>

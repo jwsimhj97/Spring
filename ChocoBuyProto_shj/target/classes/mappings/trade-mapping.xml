@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TradeDAO">
+
+
+	<insert id="insertTrade">
+		<![CDATA[
+		INSERT INTO TRADE_TABLE(TRADE_TITLE, TRADE_NICK, TRADE_CONTENT,TRADE_MONEY, TRADE_AREA, TRADE_CATEGORY)
+		VALUES( #{trade_title},#{trade_nick}, #{trade_content}, #{trade_money}, #{trade_area}, #{trade_category})
+		]]>
+	</insert>
+	
+	<update id="updateTrade">
+		<![CDATA[
+		UPDATE TRADE_TABLE SET TRADE_TITLE = #{trade_title}, TRADE_MONEY= #{trade_money},
+		TRADE_CONTENT= #{trade_content} WHERE TRADE_SEQ= #{trade_seq}  
+		]]>
+	</update>
+	<update id="updateReporting">
+		<![CDATA[
+		UPDATE TRADE_TABLE SET trade_reporting = 1 WHERE TRADE_SEQ= #{trade_seq}  
+		]]>
+	</update>
+	
+	
+	<delete id="deleteTrade">
+		<![CDATA[
+		DELETE FROM TRADE_TABLE WHERE TRADE_SEQ = #{trade_seq} 
+		]]>
+	</delete>
+
+	<select id="getTrade" resultType="trade">
+		<![CDATA[
+		SELECT * FROM TRADE_TABLE WHERE TRADE_SEQ= #{trade_seq} 
+		]]>
+	</select>
+	
+	<select id="getTradeList" resultType="trade">
+	SELECT * FROM TRADE_TABLE WHERE 1=1
+	AND TRADE_CATEGORY LIKE CONCAT('%', #{searchCategory} ,'%') ORDER BY trade_seq DESC
+	</select>
+		
+		<select id="getSearchTradeList" resultType="trade">
+	SELECT * FROM TRADE_TABLE WHERE 1=1
+	AND TRADE_CONTENT LIKE CONCAT('%', #{searchInput} ,'%') ORDER BY trade_seq DESC
+	</select>
+	
+	<select id="getMyTradeList" resultType="trade">
+	SELECT * FROM TRADE_TABLE WHERE 1=1
+	AND TRADE_NICK LIKE CONCAT('%', #{trade_nick} ,'%') ORDER BY TRADE_NICK DESC
+	</select>
+		
+	
+	
+	
+	
+	
+	
+
+</mapper>
