@@ -1,14 +1,14 @@
 package com.chocobuy.biz.pay;
 
-import java.sql.Date;
-
 public class PayVO {
 	private int pay_num;
 	private String pay_ordernum;
 	private String pay_sell;
 	private String pay_buy;
 	private String pay_category;
-	private Date pay_date;
+//	2022.05.01 추가 수정 start
+	private String pay_date;
+//	2022.05.01 추가 수정 end
 	private int pay_amount;
 	private String pay_method;
 	
@@ -45,12 +45,14 @@ public class PayVO {
 	public void setPay_category(String pay_category) {
 		this.pay_category = pay_category;
 	}
-	public Date getPay_date() {
+//	2022.05.01 추가 수정 start
+	public String getPay_date() {
 		return pay_date;
 	}
-	public void setPay_date(Date pay_date) {
+	public void setPay_date(String pay_date) {
 		this.pay_date = pay_date;
 	}
+//	2022.05.01 추가 수정 end
 	public int getPay_amount() {
 		return pay_amount;
 	}
@@ -75,9 +77,9 @@ public class PayVO {
 	public void setSearchKeyword(String searchKeyword) { 
 		this.searchKeyword = searchKeyword;
 	}
-//	@Override
-//	public String toString() {
-//		return "PayVO [pay_num="+pay_num+", pay_ordernum="+pay_ordernum+", pay_sell="+pay_sell+", pay_buy="+pay_buy+", pay_category="+pay_category+", pay_date="+pay_date+", pay_amount="+pay_amount+", pay_method="+pay_method+"]";
-//	}
+	@Override
+	public String toString() {
+		return "PayVO [pay_num="+pay_num+", pay_ordernum="+pay_ordernum+", pay_sell="+pay_sell+", pay_buy="+pay_buy+", pay_category="+pay_category+", pay_date="+pay_date+", pay_amount="+pay_amount+", pay_method="+pay_method+"]";
+	}
 
 }

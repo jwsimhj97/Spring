@@ -5,138 +5,172 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.chocobuy.biz.user.UserService;
 import com.chocobuy.biz.user.UserVO;
 import com.chocobuy.biz.util.CertifiedPhoneNumber;
 
 @Controller
-@SessionAttributes("UserInfo")
 public class LoginController {
 	@Autowired
 	private UserService userService;
+	
+	
 	/* LOGOUT */
 	@RequestMapping("/Login/logout")
 	public String logout(HttpSession session) {
-		System.out.println("로그아웃 처리");
-		return "redirect: /index";
+		System.out.println("Controller >> logout");
+		session.invalidate();
+		return "redirect:/index";
 	}
-//	/* LOGOUT-END */
-	///////////////////////////////////////////////////////////////////////* LOGIN */	
+
+	/* LOGIN */	
 	@RequestMapping(value="/Login/login",method=RequestMethod.GET)
-	public String loginView(@ModelAttribute("user") UserVO vo) {
-		System.out.println("로그인화면으로 이동");
-		return "Login/login";
+	public String login_View() {
+		return "/Login/login";
 	}
 	
-	/* 로그인 번호 확인 */
+	/* user_tel duplication check */
 	@RequestMapping(value={"/Login/getTelInfo","/Join/getTelInfo"})
 	@ResponseBody 
 	public int getTelInfo(@RequestParam("user_tel") String user_tel) {
-		System.out.println("컨트롤러> 입력한 휴대폰 번호가 db에 있는지 확인합니다.");
-		System.out.println("user_tel:"+user_tel);
-		int a= userService.userTelCheck(user_tel);
-		System.out.println(a);
-		return a; 
+		return userService.userTelCheck(user_tel); 
 	}
 	
 	@RequestMapping(value="/Login/login", method=RequestMethod.POST)
 	public String login(UserVO vo, HttpSession session) {
-	System.out.println("컨트롤러> 로그인 인증 처리");
 		UserVO user=userService.getUser(vo);
 		System.out.println("user: "+user);
 		if(userService.getUser(vo)!=null){
-			//로그인 성공 시 세션에 정보 저장
-			session.setAttribute("UserInfo", user);
-			session.setAttribute("user_nick", user.getUser_nick());
-			session.setAttribute("user_area", user.getUser_area());
-			session.setAttribute("user_tel", user.getUser_tel());
-			session.setAttribute("user_uuid", user.getUser_uuid());
-			
-			
+			//session update : user_uuid
+			session.setAttribute("UserInfo", user.getUser_uuid());
+			if(user.getUser_role()==100) {
+				return "redirect:/Admin/adminMain";
+			}
 			return "redirect:/Trade/getTradeList";
 		}else{
-			//로그인 실패
-			System.out.println("로그인 실패");
-			return "/Login/login?msg=input_Failed";
+			return "/Login/login";
 		}
 	}
-	/* LOGIN-END */
+
+	@RequestMapping(value="/Join/joinAgree")
+	public String joinAgree_view() {
+		return "/Join/JoinAgree";
+	}
 	
-	///////////////////////////////////////////////////////////////////////* 휴대폰 번호 인증 */
+	/* user_tel send validation number */
 	@RequestMapping(value={"/Join/phoneCheck","/Login/phoneCheck"}) 
 	@ResponseBody 
 	public String sendSMS(@RequestParam("phone") String userPhoneNumber, CertifiedPhoneNumber ctp) { 
-		System.out.println("컨트롤러> 휴대폰 번호 인증");
-		int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성
+		int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);
 		ctp.certifiedPhoneNumber(userPhoneNumber,randomNumber);
 		String msg=Integer.toString(randomNumber); 
 		return msg;
 	}
 	
-	///////////////////////////////////////////////////////////////////////* JOIN */	
+	/* JOIN */
+	@RequestMapping(value="/Join/joinTel", method=RequestMethod.GET)
+	public String joinTel_view() {
+		return "/Join/JoinTel";
+	}
+	
 	/* user_uuid, user_tel DB insert / Session */
-	@RequestMapping("/Join/join_tel" )
-	public String join_Tel(UserVO vo, HttpSession session, HttpServletRequest request) throws InterruptedException {
-		System.out.println("컨트롤러> 전화번호 DB 처리");
-		/* 세션이 있고, 해당 세션이라면 삭제 */
+	@RequestMapping(value="/Join/JoinTel", method=RequestMethod.POST)
+	public String joinTel(UserVO vo, HttpSession session, HttpServletRequest request) throws InterruptedException {
+		System.out.println("Controller >> jointel");
+		if(userService.getUser(vo)==null) {
+			userService.insertUser(vo);
+			System.out.println("JoinTel컨트롤러vo"+userService.getUser(vo));		
+		}
+		// 세션이 생성되어 있으면 해당 세션 리턴, 생성되어 있지 않으면 null을 리턴
 		session = request.getSession(false);
+		// 세션이 있으면 삭제합니다
 		if(session != null && session.getAttribute("UserInfo") != null) {
 			session.invalidate();
-		}
+		}else {
 		UserVO user=userService.getUser(vo);
-		System.out.println(user);
-		if(user==null) {
-			userService.insertUser(vo);
+		session.setAttribute("UserInfo", user.getUser_uuid());
+		System.out.println("session추가 후 확인: "+session.getAttribute("UserInfo"));
 		}
-		UserVO user2=userService.getUser(vo);
-		/* 세션이 없을 때, 세션 생성해서 UserInfo를 넣어줌  */
-		if(session == null){			
-			session=request.getSession();
-			session.setAttribute("UserInfo", user2);
-		}
-		return "redirect:/Join/join_area.jsp";
+		return "redirect:/Join/joinArea";
 	}
 	
-	/* 주소인증 */
-	@RequestMapping("/Join/join_area")
-	public String join_Area(UserVO vo, HttpSession session) {
-		System.out.println("컨트롤러> 주소 인증");
+	@RequestMapping(value="/Join/joinArea", method=RequestMethod.GET)
+	public String joinArea_view(UserVO vo, Model model2, HttpSession session) {
+		vo.setUser_uuid((String)session.getAttribute("UserInfo"));
+		model2.addAttribute("user1", userService.getUserUuid(vo));
+		System.out.println(userService.getUserUuid(vo));
+		return "/Join/JoinArea";
+	}
+	
+	@RequestMapping(value="/Join/joinArea", method=RequestMethod.POST)
+	public String join_Area(Model model, UserVO vo, Model model2, HttpSession session,
+			@RequestParam(value="addrDetail", defaultValue = "", required = false) String addrDetail, 
+			@RequestParam(value="inputYn", defaultValue = "", required = false) String inputYn, 
+			@RequestParam(value="siNm", defaultValue = "", required = false) String siNm, 
+			@RequestParam(value="sggNm", defaultValue = "", required = false) String sggNm, 
+			@RequestParam(value="emdNm", defaultValue = "", required = false) String emdNm) {
+		System.out.println("Controller >> using address API and update user_area");
+		model.addAttribute("inputYn", inputYn);
+		model.addAttribute("siNm", siNm);
+		model.addAttribute("sggNm", sggNm);
+		model.addAttribute("emdNm", emdNm);
+		vo.setUser_siNm(siNm);
+		vo.setUser_sggNm(sggNm);
+		vo.setUser_emdNm(emdNm);
+		vo.setUser_uuid((String)session.getAttribute("UserInfo"));
+		model2.addAttribute("user1", userService.getUserUuid(vo));
 		userService.updateUserArea(vo);
-		return "/Join/join_nick";
+		return "/Join/JoinArea";
+	}
+
+	@RequestMapping(value="/Join/JoinArea", method=RequestMethod.POST)
+	public String join_Area( Model model, UserVO vo ,HttpSession session) {
+		System.out.println("db작업을 해버려서 할 일이 없음 그래서 그냥 리다이렉트만 합니다.. ");
+		return "redirect:/Join/joinNick";
 	}
 	
-	/* 닉네임  중복 처리 */
-	@RequestMapping("/nameCheck") 
+	@RequestMapping(value="/Join/joinNick", method=RequestMethod.GET)
+	public String joinNick_view(UserVO vo, Model model, HttpSession session) {
+		vo.setUser_uuid((String)session.getAttribute("UserInfo"));
+		model.addAttribute("user1", userService.getUserUuid(vo));
+		System.out.println(userService.getUserUuid(vo));
+		return "/Join/JoinNick";
+	}
+	
+	/* user_nick duplication check */
+	@RequestMapping(value="/Join/NameCheck", method=RequestMethod.GET) 
 	@ResponseBody 
 	public int nameCheck(@RequestParam("user_nick") String user_nick) {
-		System.out.println("컨트롤러> 별명 중복 처리");
-		int a= userService.nickDupCheck(user_nick);
-		System.out.println(a);
-		return a; 
+		System.out.println("user_nick duplication check");
+		return userService.nickDupCheck(user_nick); 
 	}	
 	
-	/* 닉네임 추가  */
-	@RequestMapping("/Join/join_done")
-	public String join_Nick(UserVO vo) {
-		System.out.println("컨트롤러> 별명 db 입력");
+	/* update user_nick & user_profileImg */
+	@RequestMapping(value="/Join/JoinNick", method=RequestMethod.POST)
+	public String joinDone_View(UserVO vo) {
+		System.out.println("update user_nick & user_profileImg");
 		userService.updateUserNick(vo);
-		return "redirect:/Join/join_done.jsp";
+		return "redirect:/Join/Joindone";
+	}
+	 
+	@RequestMapping(value="/Join/Joindone", method=RequestMethod.GET)
+	public String joindone_view() {
+		return "/Join/JoinDone";
 	}
 	
-	/*   */
-	@RequestMapping("/Join/login" )
-	public String join_Done(UserVO vo) {
-		System.out.println("컨트롤러> join에서 사용한 세선 삭제");
-		
-		return "redirect:/Login/login.jsp";
+	/* delete session & redirect to login */
+	@RequestMapping(value="/Join/JoinDone", method=RequestMethod.POST)
+	public String join_Done(UserVO vo, HttpSession session, HttpServletRequest request) {
+		System.out.println("Controller >> Join process done. Redircet to Login");
+		if(request.getSession(false)!=null) {
+			session.invalidate();			
+		}
+		return "redirect:/Login/login";
 	}
-	
-		
 }

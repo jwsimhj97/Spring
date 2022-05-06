@@ -4,9 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class TradeInterceptor extends HandlerInterceptorAdapter {
@@ -35,20 +32,20 @@ public class TradeInterceptor extends HandlerInterceptorAdapter {
 		}
 		///
 		HttpSession session = request.getSession();
-		String user_nick = (String)session.getAttribute("user_nick");
+		String UserInfo = (String)session.getAttribute("UserInfo");
 		
-		if(user_nick == null || user_nick.trim().equals("")) {
+		if(UserInfo == null || UserInfo.trim().equals("")) {
 			session.invalidate();
 			
 			response.sendRedirect("/Login/login.jsp");
 			return false;
 		}
-		if(!user_nick.equals(request.getParameter("trade_nick"))) {
-			response.sendRedirect("/Login/login.jsp");
-			return false;	
-			
-		}
+//		if(!UserInfo.equals(request.getParameter("trade_uuid"))) {
+//			response.sendRedirect("/Login/login.jsp");
+//			return false;	
+//			
+//		}
 		
 		return true;
 	}
-}
+} 	

@@ -1,24 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/template/head.jsp"  %>
 <link rel="stylesheet" href="${pagecontext.request.contextPath}/resources/css/trade_style.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/TradeScript.js"></script>
 <title>TradeInsert</title>
+<style>
+
+</style>
 <%@ include file="/WEB-INF/views/template/header.jsp"  %>
 <%@ include file="/WEB-INF/views/template/menu.jsp" %> 
     <div class="container">
         <div class="warp">
             <section class="">
 				<div class="container-fluid">
-<!-- 					<form action="insertTrade.do" method="post" > -->
-					<form id="insertTrade_do" method="post" >
+					<!-- 20220502 김혜린 수정 -->
+					<form id="insertTrade_do" method="post" enctype="multipart/form-data">
 						<div class="imgBox mb-3 mt-3">
-							<img src="${pageContext.request.contextPath}/resources/img/fff.png">
+							<label id="chooseFile" for="chooseFile"> 사진 올리기! </label>
+							<input id="uploadBtn" type="file" class="form-control border" name="trade_uploadImg" accept="image/*" onChange="loadFile(this)" value="trade_img" hidden>      
 						</div>
+						<div id="imageShow" class="mb-3"></div>
+					<!-- 20220502 김혜린 수정 -->
 							<div class="media p-3">
-								<img src="${pageContext.request.contextPath}/resources/img/img_avatar3.png" alt="John Doe" class="mr-3 rounded-circle" style="width: 60px;">
+								<img src="${pageContext.request.contextPath}/resources/img/profileImg/${user.user_profileImg}" alt="profileImg" class="mr-3 rounded-circle" style="width: 60px;">
 								<div class="media-body" id="proBox">
-								
-									<h4><input type="text" name="trade_nick" value="${user_nick}" readonly></h4>
-									<p><small><input type="text" name="trade_area" value="${user_siNm} ${user_sggNm} ${user_emdNm}" readonly></small></p>
+									<h4>${user.user_nick}<input type="hidden" name="trade_nick" value="${user.user_nick}" ></h4>
+									<p><small>${user.user_siNm += user.user_sggNm += user.user_emdNm}</small></p>
+									<input type="hidden" name="trade_sinm" value="${user.user_siNm}" >
+									<input type="hidden" name="trade_sggnm" value="${user.user_sggNm}" >
+									<input type="hidden" name="trade_emdnm" value="${user.user_emdNm}" >
 									</div>
 								</div>
 						<div class="input-group">

@@ -38,10 +38,6 @@ public class TradeServiceImpl implements TradeService {
 	public List<TradeVO> getTradeList(TradeVO vo) {
 		return tradeDAO.getTradeList(vo);
 	}
-	@Override
-	public List<TradeVO> getMyTradeList(TradeVO vo) {
-		return tradeDAO.getMyTradeList(vo);
-	}
 
 	@Override
 	public List<TradeVO> getSearchTradeList(TradeVO vo) {
@@ -53,5 +49,39 @@ public class TradeServiceImpl implements TradeService {
 		tradeDAO.updateReporting(vo);
 		
 	}
+	@Override
+	public List<TradeVO> getMyTradeList(TradeVO vo) {
+		return tradeDAO.getMyTradeList(vo);
+	}
+
+
+	
+	
+	@Override
+	public List<TradeVO> getMypageTradeList(TradeVO vo) {
+		return tradeDAO.getMypageTradeList(vo);
+	}
+	@Override
+	public TradeVO getMypageTrade(TradeVO vo) {
+		return tradeDAO.getMypageTrade(vo); 
+	}
+	
+	@Override
+	public void updateMypageTrade(TradeVO vo) {
+		tradeDAO.updateMypageTrade(vo);
+	}
+	
+	@Override
+	public List<TradeVO> getMypageTradeSerch(TradeVO vo) {
+		return tradeDAO.getMypageTradeSerch(vo);    
+	}
+
+	
+	// 글 개수 확인 
+	@Override
+	public int countMypageTrade(TradeVO vo) {
+		return tradeDAO.countMypageTrade(vo);
+	}
+
 
 }

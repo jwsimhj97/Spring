@@ -2,6 +2,8 @@ package com.chocobuy.biz.trade;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class TradeVO {
 	
 	private int trade_seq;//	글번호
@@ -9,13 +11,100 @@ public class TradeVO {
 	private String trade_title;//	글 제목
 	private int trade_money;//	금액
 	private String trade_content;//	글 내용
-	private String trade_area;//	거래 지역
+//	private String trade_area;//	거래 지역
+	private String trade_sinm;//	거래 지역 시
+	private String trade_sggnm;//	거래 지역 시군구
+	private String trade_emdnm;//	거래 지역 읍면동
 	private String trade_img;//	이미지 이름
+	private String trade_profileimg;//	프로필 이미지 이름
 	private String trade_category;//	카테고리
 	private String trade_buyinfo;//	구매자정보
 	private String trade_review;//	리뷰
 	private Date trade_date;//	날짜
 	private int trade_reporting;// 유저 신고
+	private int trade_stop; //숨김 처리 유저
+	private MultipartFile trade_uploadImg;//
+	private String trade_imgpath;//이미지 저장 경로
+	private String trade_uuid;
+	
+	private String searchMypageCondition;  // My page 글 검색 카테고리 커럼에 등록 필요 없음
+	private String searchMypageKeyword;    // My page 글검색 입력  컬럼에 등록 필요 없음
+	private int start;
+	private int listcnt;
+	
+	public String getTrade_sinm() {
+		return trade_sinm;
+	}
+	public void setTrade_sinm(String trade_sinm) {
+		this.trade_sinm = trade_sinm;
+	}
+	public String getTrade_sggnm() {
+		return trade_sggnm;
+	}
+	public void setTrade_sggnm(String trade_sggnm) {
+		this.trade_sggnm = trade_sggnm;
+	}
+	public String getTrade_emdnm() {
+		return trade_emdnm;
+	}
+	public void setTrade_emdnm(String trade_emdnm) {
+		this.trade_emdnm = trade_emdnm;
+	}
+	public String getTrade_profileimg() {
+		return trade_profileimg;
+	}
+	public void setTrade_profileimg(String trade_profileimg) {
+		this.trade_profileimg = trade_profileimg;
+	}
+	public String getTrade_uuid() {
+		return trade_uuid;
+	}
+	public void setTrade_uuid(String trade_uuid) {
+		this.trade_uuid = trade_uuid;
+	}
+	
+	public String getTrade_imgpath() {
+		return trade_imgpath;
+	}
+	public void setTrade_imgpath(String trade_imgpath) {
+		this.trade_imgpath = trade_imgpath;
+	}
+	public int getTrade_stop() {
+		return trade_stop;
+	}
+	public String getSearchMypageCondition() {
+		return searchMypageCondition;
+	}
+	public void setSearchMypageCondition(String searchMypageCondition) {
+		this.searchMypageCondition = searchMypageCondition;
+	}
+	public String getSearchMypageKeyword() {
+		return searchMypageKeyword;
+	}
+	public void setSearchMypageKeyword(String searchMypageKeyword) {
+		this.searchMypageKeyword = searchMypageKeyword;
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getListcnt() {
+		return listcnt;
+	}
+	public void setListcnt(int listcnt) {
+		this.listcnt = listcnt;
+	}
+	public MultipartFile getTrade_uploadImg() {
+		return trade_uploadImg;
+	}
+	public void setTrade_uploadImg(MultipartFile trade_uploadImg) {
+		this.trade_uploadImg = trade_uploadImg;
+	}
+	public void setTrade_stop(int trade_stop) {
+		this.trade_stop = trade_stop;
+	}
 	public int getTrade_reporting() {
 		return trade_reporting;
 	}
@@ -68,12 +157,7 @@ public class TradeVO {
 	public void setTrade_content(String trade_content) {
 		this.trade_content = trade_content;
 	}
-	public String getTrade_area() {
-		return trade_area;
-	}
-	public void setTrade_area(String trade_area) {
-		this.trade_area = trade_area;
-	}
+
 	public String getTrade_img() {
 		return trade_img;
 	}

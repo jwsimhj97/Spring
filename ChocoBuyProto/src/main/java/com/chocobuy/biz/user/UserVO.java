@@ -1,17 +1,23 @@
 package com.chocobuy.biz.user;
 
+import java.util.Date;
+
 // VO(value Object)
 public class UserVO {
 	private String user_uuid;
 	private String user_tel;
 	private String user_area;
 	private String user_nick;
-	
 	private String user_siNm;
 	private String user_sggNm;
 	private String user_emdNm;
+	private String user_profileImg;
 	private int user_role;
-
+	
+	private boolean autoLogin; //사용자가 로그인을 할때 자동로그인 체크박스를 클릭했는지 안했는지에 대한 논리값
+	private String sessionId;
+    private Date limitDate;
+	
 	public String getUser_siNm() {
 		return user_siNm;
 	}
@@ -54,20 +60,40 @@ public class UserVO {
 	public void setUser_nick(String user_nick) {
 		this.user_nick = user_nick;
 	}
-
+	public String getUser_profileImg() {
+		return user_profileImg;
+	}
+	public void setUser_profileImg(String user_profileImg) {
+		this.user_profileImg = user_profileImg;
+	}
 	public int getUser_role() {
 		return user_role;
 	}
 	public void setUser_role(int user_role) {
 		this.user_role = user_role;
 	}
-	
+	public boolean isAutoLogin() {
+		return autoLogin;
+	}
+	public void setAutoLogin(boolean autoLogin) {
+		this.autoLogin = autoLogin;
+	}
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	public Date getLimitDate() {
+		return limitDate;
+	}
+	public void setLimitDate(Date limitDate) {
+		this.limitDate = limitDate;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [user_uuid=" + user_uuid + ", user_tel=" + user_tel + ", user_area=" + user_area + ", user_nick="
 				+ user_nick + ", user_siNm=" + user_siNm + ", user_sggNm=" + user_sggNm + ", user_emdNm=" + user_emdNm
-				+ ", user_role=" + user_role + "]";
+				+ ", user_profileImg=" + user_profileImg + ", user_role=" + user_role + "]";
 	}
-	
-
 }

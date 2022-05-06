@@ -14,6 +14,7 @@ public class PayServiceImpl implements PayService {
 	@Autowired
 	private PayDAOmybatis payDAO;
 		
+	@Override
 	public void insertPay(PayVO vo) {
 		payDAO.insertPay(vo);
 	}

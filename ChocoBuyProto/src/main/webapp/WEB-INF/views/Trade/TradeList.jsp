@@ -10,18 +10,22 @@
         <div class="warp">
             <section class="sectionBox">
             <div class="flexContainer">
+            
+            
             <c:forEach items="${tradeList}" var="trade">
-            	<div  onClick="location.href='getTrade?trade_seq=${trade.trade_seq}'"  class="listcontainer border-secondary">
+            	<div  onClick="location.href='getTrade?trade_seq=${trade.trade_seq}'"  class="listcontainer border-secondary" >
             		<div class="listContainerhover">
-            		<img src="https://dummyimage.com/280x149/fff/000.png" alt="untitledchoco" class="trade-img">
+            		<img src="${pageContext.request.contextPath}/resources/img/upload/${trade.trade_img}" alt="untitledchoco" class="trade-img" style="width : 280px; heith : 149px;">
 					</div>
 					<div class="textcontent">
 					<h4><span>${trade.trade_title}</span></h4>
-					<small><i>${trade.trade_area}</i></small>
+					<small><i>${trade.trade_sinm +=trade.trade_sggnm +=trade.trade_emdnm }</i></small>
 					<p>${trade.trade_money}원</p>
 					</div>
 				</div>
 			</c:forEach>
+			
+			
             </div>
 			</section>
         </div>

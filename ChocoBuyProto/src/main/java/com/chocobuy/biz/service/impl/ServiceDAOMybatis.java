@@ -20,7 +20,7 @@ public class ServiceDAOMybatis {
 	//글 수정
 	public void updateService(ServiceVO vo) {
 		System.out.println("===>JDBC로 updateService() 기능처리");
-		mybatis.update("SerivceDAO.updateService", vo);
+		mybatis.update("ServiceDAO.updateService", vo);
 	}
 	//글 삭제
 	public void deleteService(ServiceVO vo) {
@@ -30,7 +30,7 @@ public class ServiceDAOMybatis {
 	//글 상세 조회
 	public ServiceVO getService(ServiceVO vo) {
 		System.out.println("===>JDBC로 getService() 기능처리");
-//		mybatis.update("ServiceDAO.updateCnt", vo);
+		mybatis.update("ServiceDAO.updateCnt", vo);
 		return (ServiceVO) mybatis.selectOne("ServiceDAO.getService", vo);
 	}
 	
@@ -39,7 +39,11 @@ public class ServiceDAOMybatis {
 		System.out.println("===>JDBC로 getServiceList() ");
 		return mybatis.selectList("ServiceDAO.getServiceList", vo);
 	}
-
+	
+	//전체 페이지 수 조회
+		public int countService(ServiceVO vo) {
+			return mybatis.selectOne("ServiceDAO.countService", vo);
+		}
 }
 
 
